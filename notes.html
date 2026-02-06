@@ -28,3 +28,40 @@ META-DATA URL and Token -> http://169.254.169.254/
 AQAAAF3o04f0Oau5RJn2sJS7FdgwluAvtvJ57EKtLWPsxLrCaXlmIA==
 [root@ip-172-31-19-70 ec2-user]# curl -H "X-aws-ec2-metadata-token: $TOKEN" \
 http://169.254.169.254/latest/meta-data/
+
+----------- 
+Append any of the below id's append to the url so view the meta-data ->
+[root@ip-172-31-19-70 ec2-user]# TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" \
+  -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+[root@ip-172-31-19-70 ec2-user]# echo $TOKEN
+AQAAAF3o04f0Oau5RJn2sJS7FdgwluAvtvJ57EKtLWPsxLrCaXlmIA==
+[root@ip-172-31-19-70 ec2-user]# curl -H "X-aws-ec2-metadata-token: $TOKEN" \
+http://169.254.169.254/latest/meta-data/
+
+ami-id
+ami-launch-index
+ami-manifest-path
+block-device-mapping/
+events/
+hostname
+iam/
+identity-credentials/
+instance-action
+instance-id
+instance-life-cycle
+instance-type
+local-hostname
+local-ipv4
+mac
+metrics/
+network/
+placement/
+profile
+public-hostname
+public-ipv4
+public-keys/
+reservation-id
+security-groups
+services/
+
+------------------------
