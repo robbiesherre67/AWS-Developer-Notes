@@ -18,6 +18,10 @@ curl http://169.254.169.254/latest/dynamic/instance-identity/document
 curl -s http://169.254.169.254/latest/dynamic/instance-identity/document > /var/www/html/index.html
 
 -----------------
+Remember to access the TOKEN!! ->
+TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" \
+  -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+
 
 When the Apache web server is installed and running, we can access the metadata of the EC2 instance by making HTTP requests to the special IP address
 META-DATA URL and Token -> http://169.254.169.254/
@@ -64,4 +68,76 @@ reservation-id
 security-groups
 services/
 
+------------------------
+DYNAMIC DATA SERVICE GET INFORMATION ABOUT THE EC2 INSTANCE ITSELF ->
+Remember to access the TOKEN!! ->
+TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" \
+  -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+------------------------  
+[root@ip-172-31-19-70 ec2-user]# TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" \
+  -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+[root@ip-172-31-19-70 ec2-user]# echo $TOKEN
+AQAAAF3o04cZPRXC1otU7-5mjpnZnZtW49SoMWIIRWO7TiQ-cQt3PA==
+[root@ip-172-31-19-70 ec2-user]# curl -H "X-aws-ec2-metadata-token: $TOKEN" \
+http://169.254.169.254/latest/dynamic/instance-identity/document
+{
+  "accountId" : "965745962559",
+  "architecture" : "x86_64",
+  "availabilityZone" : "us-west-1a",
+  "billingProducts" : null,
+  "devpayProductCodes" : null,
+  "marketplaceProductCodes" : null,
+  "imageId" : "ami-0993d3759749c153c",
+  "instanceId" : "i-05dd49b1c1811019f",
+  "instanceType" : "t2.micro",
+  "kernelId" : null,
+  "pendingTime" : "2026-02-04T19:25:36Z",
+  "privateIp" : "172.31.19.70",
+  "ramdiskId" : null,
+  "region" : "us-west-1",
+  "version" : "2017-09-30"
+}
+------------------------
+Amazon Linux 2023 and Apache is already installed
+
+Restart Apache (httpd)
+From the instance shell:
+sudo systemctl restart httpd
+
+
+Useful related commands
+Check Apache status
+sudo systemctl status httpd
+
+
+You want:
+active (running)
+
+Start Apache (if it’s stopped)
+sudo systemctl start httpd
+
+Stop Apache
+sudo systemctl stop httpd
+
+Enable Apache on boot (recommended)
+sudo systemctl enable httpd
+
+Quick sanity test after restart
+On the instance:
+curl http://localhost
+
+
+In your browser:
+http://<PUBLIC_IP>
+
+
+If both work → Apache is healthy.
+Pro tip (so you don’t confuse services later)
+
+Apache service name = httpd
+nginx service name = nginx
+
+So ->
+systemctl restart httpd   # Apache
+systemctl restart nginx   # nginx
 ------------------------
