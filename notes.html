@@ -1,3 +1,13 @@
+EC2 stands for:
+Elastic Compute Cloud
+
+Breakdown, briefly:
+Elastic → you can start, stop, scale up/down anytime
+Compute → CPU + memory (a virtual computer)
+Cloud → hosted by AWS, not on your own hardware
+So Amazon EC2 literally means:
+“On-demand virtual servers in the cloud.”
+-------------------
 sudo su
 yum update -y
 yum install httpd
@@ -25,13 +35,6 @@ TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" \
 
 When the Apache web server is installed and running, we can access the metadata of the EC2 instance by making HTTP requests to the special IP address
 META-DATA URL and Token -> http://169.254.169.254/
-
-[root@ip-172-31-19-70 ec2-user]# TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" \
-  -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
-[root@ip-172-31-19-70 ec2-user]# echo $TOKEN
-AQAAAF3o04f0Oau5RJn2sJS7FdgwluAvtvJ57EKtLWPsxLrCaXlmIA==
-[root@ip-172-31-19-70 ec2-user]# curl -H "X-aws-ec2-metadata-token: $TOKEN" \
-http://169.254.169.254/latest/meta-data/
 
 ----------- 
 Append any of the below id's append to the url so view the meta-data ->
