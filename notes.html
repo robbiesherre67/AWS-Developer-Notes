@@ -113,7 +113,7 @@ sudo systemctl status httpd
 You want:
 active (running)
 
-Start Apache (if it’s stopped)
+Start Apache (if it's stopped)
 sudo systemctl start httpd
 
 Stop Apache
@@ -130,7 +130,7 @@ In your browser:
 http://<PUBLIC_IP>
 
 If both work → Apache is healthy.
-Pro tip (so you don’t confuse services later)
+Pro tip (so you don't confuse services later)
 
 Apache service name = httpd
 nginx service name = nginx
@@ -140,7 +140,7 @@ systemctl restart httpd   # Apache
 systemctl restart nginx   # nginx
 ------------------------
 EC2 Launch Template
-Launch templates are a resource that contains the configuration information to launch an EC2 instance. They allow
+Launch templates are a resource that contains the configuration information to launch an EC2 instance. 
 A Launch Template in Amazon EC2 is a reusable blueprint for creating EC2 instances.
 
 What it stores
@@ -162,7 +162,7 @@ define the settings once
 reuse them consistently
 reduce mistakes
 
-When it’s used
+When it's used
 Auto Scaling Groups
 Repeatable environments (dev/test)
 Standardized instance builds
@@ -170,4 +170,32 @@ Infrastructure-as-code workflows
 
 A Launch Template is a saved EC2 configuration you can reuse to launch 
 identical instances consistently.
+-------------------------
+What an AMI is (quick)
+
+An AMI (Amazon Machine Image) in Amazon EC2 is a snapshot + blueprint of an EC2 instance.
+It captures:
+
+OS
+installed software (Apache, configs, etc.)
+disk state
+instance configuration (not runtime data)
+
+When you should create an AMI
+
+Create an AMI if:
+You spent time configuring the instance
+It's a "known good" learning setup
+You might want to recreate it later
+You plan to terminate the instance to save money
+This lets you:
+safely delete the instance
+relaunch it later exactly as it was
+avoid redoing setup work
+
+Think of it as a "save point".
+
+AMIs cost small EBS snapshot storage, so don’t create them unnecessarily.
+
+An AMI is used to preserve a configured EC2 instance so it can be relaunched consistently in the future.
 -------------------------
