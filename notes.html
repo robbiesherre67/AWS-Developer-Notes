@@ -195,7 +195,7 @@ avoid redoing setup work
 
 Think of it as a "save point".
 
-AMIs cost small EBS snapshot storage, so don’t create them unnecessarily.
+AMIs cost small EBS snapshot storage, so don't create them unnecessarily.
 
 An AMI is used to preserve a configured EC2 instance so it can be relaunched consistently in the future.
 -------------------------
@@ -312,3 +312,61 @@ One-Sentence Exam Takeaway (Memorize This)
 EC2 user data is a startup script used to automatically configure an instance 
 at launch, such as installing software and starting services.
 --------------------------
+Can you update the EC2 instance to a new AMI updated with latest patches?
+
+Yes — but not “in place.”
+EC2 instances cannot be updated to a new AMI directly. You do it via a replace-with-new-instance process.
+
+Here's the brief, exam- and real-world-correct explanation.
+
+The correct way to “update” an EC2 instance to a new AMI
+Key rule (important)
+
+You don't update an instance to a new AMI — you create a new instance from a new AMI.
+
+AMI = launch-time artifact, not a live update mechanism.
+
+Standard process (clean + safe)
+Patch the existing instance
+
+On the running instance:
+sudo yum update -y
+
+This applies:
+
+OS updates
+security patches
+
+Create a new AMI from the patched instance
+
+In Amazon EC2:
+Select the instance
+Actions → Image and templates → Create image
+This AMI now includes the latest patches
+Think of this as a golden image.
+
+Launch a new instance from that AMI
+
+Launch EC2 using the new AMI
+Attach same security group / IAM role
+Verify everything works
+
+Terminate the old instance (optional)
+
+Once confirmed:
+
+Terminate the old instance
+Zero compute cost
+Clean environment
+
+Why AWS works this way
+AMIs are immutable
+Immutable infrastructure is:
+safer
+repeatable
+rollback-friendly
+This avoids “snowflake servers”
+This pattern is heavily tested on exams.
+
+To update an EC2 instance with a new AMI, you create a new AMI 
+from a patched instance and launch a replacement instance.
