@@ -32,7 +32,6 @@ Remember to access the TOKEN!! ->
 TOKEN=$(curl -sX PUT "http://169.254.169.254/latest/api/token" \
   -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
 
-
 When the Apache web server is installed and running, we can access the metadata of the EC2 instance by making HTTP requests to the special IP address
 META-DATA URL and Token -> http://169.254.169.254/
 
@@ -107,11 +106,9 @@ Restart Apache (httpd)
 From the instance shell:
 sudo systemctl restart httpd
 
-
 Useful related commands
 Check Apache status
 sudo systemctl status httpd
-
 
 You want:
 active (running)
@@ -129,10 +126,8 @@ Quick sanity test after restart
 On the instance:
 curl http://localhost
 
-
 In your browser:
 http://<PUBLIC_IP>
-
 
 If both work → Apache is healthy.
 Pro tip (so you don’t confuse services later)
