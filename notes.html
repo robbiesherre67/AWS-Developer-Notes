@@ -144,3 +144,35 @@ So ->
 systemctl restart httpd   # Apache
 systemctl restart nginx   # nginx
 ------------------------
+EC2 Launch Template
+Launch templates are a resource that contains the configuration information to launch an EC2 instance. They allow
+A Launch Template in Amazon EC2 is a reusable blueprint for creating EC2 instances.
+
+What it stores
+
+A launch template can predefine:
+AMI (OS)
+Instance type (t3.micro, etc.)
+Key pair
+Security groups
+IAM role
+Storage (EBS)
+User data (startup scripts)
+Networking settings
+
+Why it exists
+
+Instead of re-configuring EC2 every time, you:
+define the settings once
+reuse them consistently
+reduce mistakes
+
+When it’s used
+Auto Scaling Groups
+Repeatable environments (dev/test)
+Standardized instance builds
+Infrastructure-as-code workflows
+
+A Launch Template is a saved EC2 configuration you can reuse to launch 
+identical instances consistently.
+-------------------------
