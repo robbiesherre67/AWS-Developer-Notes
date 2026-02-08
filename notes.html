@@ -199,3 +199,116 @@ AMIs cost small EBS snapshot storage, so don’t create them unnecessarily.
 
 An AMI is used to preserve a configured EC2 instance so it can be relaunched consistently in the future.
 -------------------------
+FOR PERSONAL USE ONLY - DO NOT SHARE PUBLICLY
+Example EC2 user-data script (Amazon Linux)
+#!/bin/bash
+yum update -y
+yum install -y httpd
+yum install -y git
+yum install -y awscli
+systemctl start httpd
+systemctl enable httpd
+curl -s http://169.254.169.254/latest/dynamic/instance-identity/document \
+> /var/www/html/index.html
+-------------------------
+IMDS concept (not syntax)
+You should know:
+169.254.169.254 = EC2 metadata service
+
+Metadata can provide:
+instance ID
+region
+account
+IMDSv2 requires a token
+Metadata should not be publicly exposed in production
+
+EC2 User Data & Metadata — Study Guide (Exam Focused)
+What is EC2 User Data?
+EC2 User Data is a startup script that runs once when an EC2 instance launches.
+
+It is commonly used to:
+Install software
+Configure the operating system
+Start services automatically
+Perform basic bootstrapping tasks
+
+📌 Key point: User data runs at first boot, not every restart.
+
+Typical EC2 User Data Pattern (Conceptual)
+You do not need to memorize commands — recognize the intent.
+#!/bin/bash
+<update OS packages>
+<install required software>
+<start services>
+<enable services on boot>
+
+This pattern means:
+“Automatically configure the instance when it starts.”
+
+Common Example (Context Only)
+#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+
+Exam interpretation:
+➡️ “This script installs and starts a web server at launch.”
+
+What is 169.254.169.254?
+169.254.169.254 is the EC2 Instance Metadata Service (IMDS) for Amazon EC2.
+
+It provides instance-specific information, such as:
+Instance ID
+Region
+Availability Zone
+Account ID
+Instance type
+This data is only accessible from inside the EC2 instance.
+
+Why Classes Sometimes Use This Command
+curl http://169.254.169.254/latest/dynamic/instance-identity/document \
+> /var/www/html/index.html
+
+Purpose (educational):
+Proves the code is running on EC2
+Demonstrates metadata access
+Shows user data + web server working together
+
+Important:
+This is a demo pattern, not a production best practice.
+
+IMDSv2 (Security Concept)
+Modern EC2 instances use IMDSv2, which:
+Requires a session token
+Returns 401 Unauthorized if accessed without a token
+Protects against SSRF attacks
+📌 Exam-level understanding:
+You only need to know IMDSv2 exists and is more secure.
+
+What You DO Need to Know for the Exam
+
+✅ User data is for bootstrapping
+✅ It runs at instance launch
+✅ Metadata is available via IMDS
+✅ Metadata identifies the EC2 instance
+✅ Scripts automate configuration
+❌ You do NOT need to memorize Linux commands
+❌ You do NOT need to write metadata scripts from memory
+
+How This Appears on the Exam
+
+Typical question framing:
+
+“What is this script used for?”
+“Why would user data be configured?”
+“What does accessing 169.254.169.254 indicate?”
+
+Correct conceptual answers:
+Automatic instance configuration
+Retrieving EC2 metadata
+Proving the application is running on a specific instance
+One-Sentence Exam Takeaway (Memorize This)
+EC2 user data is a startup script used to automatically configure an instance 
+at launch, such as installing software and starting services.
+--------------------------
