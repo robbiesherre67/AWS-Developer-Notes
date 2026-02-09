@@ -370,3 +370,40 @@ This pattern is heavily tested on exams.
 
 To update an EC2 instance with a new AMI, you create a new AMI 
 from a patched instance and launch a replacement instance.
+
+--------------------------
+
+Application Load Balancer (ALB)
+
+What it does:
+Routes HTTP/HTTPS traffic based on URL paths, hostnames, headers.
+
+Why you use it:
+Modern web apps & APIs
+Microservices
+Path-based routing (e.g., /api, /images)
+Think: Smart, Layer 7 web routing
+
+Network Load Balancer (NLB)
+
+What it does:
+Handles TCP/UDP traffic at very high performance.
+
+Why you use it:
+Extreme performance & low latency
+Non-HTTP traffic
+Millions of connections per second
+Think: Fast, Layer 4, no inspection
+
+Classic Load Balancer (CLB)
+
+What it does:
+Legacy load balancing for basic HTTP/TCP traffic.
+
+Why you use it:
+Older applications
+Backward compatibility only
+Think: Old, avoid for new designs
+
+One-line exam takeaway (memorize this)
+ALB = HTTP logic, NLB = raw speed, CLB = legacy.
