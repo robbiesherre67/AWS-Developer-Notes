@@ -204,6 +204,141 @@ FIFO (First In, First Out)
 SQS queue guaranteeing order and exactly-once processing.
 
 ----------------------------
+IAM Role vs IAM Policy
+
+IAM Policy
+A set of permissions (JSON document)
+Defines what actions are allowed or denied
+Does nothing by itself until attached
+Think: “Rules”
+
+IAM Role
+An identity that can assume permissions
+Has policies attached
+Used by AWS services (Lambda, EC2, ECS)
+Think: “Who uses the rules”
+
+Exam trigger
+
+“Lambda needs permission to access DynamoDB”
+✔️ IAM Role attached to Lambda
+
+Lambda Timeout & Memory
+
+Lambda Timeout
+Max execution time (up to 15 minutes)
+If exceeded → function is killed
+
+Lambda Memory
+Allocated in MB
+CPU and network scale with memory
+More memory = faster execution (often cheaper overall)
+
+Exam trigger
+
+“Function is timing out”
+✔️ Increase memory or optimize code
+
+SQS vs SNS
+SQS (Queue)
+
+Pull-based
+Messages consumed once
+Used for decoupling systems
+Think: worker queue
+
+SNS (Topic)
+Push-based
+Message sent to multiple subscribers
+Used for fan-out
+Think: broadcast
+
+Exam trigger
+
+“Send event to multiple systems”
+✔️ SNS
+
+“Process jobs asynchronously”
+✔️ SQS
+
+DynamoDB GSI vs LSI
+LSI (Local Secondary Index)
+Same partition key
+Different sort key
+Must be created at table creation
+Shares throughput with base table
+
+GSI (Global Secondary Index)
+Different partition key
+Optional different sort key
+Can be added after table creation
+Has separate throughput
+
+Exam trigger
+
+“Need new access pattern after launch”
+✔️ GSI
+
+ALB = Layer 7
+Application Load Balancer
+Operates at HTTP/HTTPS
+Can route based on:
+Path (/api)
+Host (api.example.com)
+Works great with containers & Lambda
+
+Exam trigger
+
+“Route traffic based on URL path”
+✔️ ALB
+
+NLB = Layer 4
+Network Load Balancer
+Operates at TCP/UDP
+Extremely fast
+Preserves client IP
+No HTTP awareness
+
+Exam trigger
+
+“Ultra-low latency TCP traffic”
+✔️ NLB
+
+CloudWatch vs CloudTrail
+CloudWatch
+
+Metrics
+Logs
+Alarms
+Performance monitoring
+Think: “How is my system behaving?”
+
+CloudTrail
+Who did what
+API calls
+Security auditing
+Think: “Who changed something?”
+
+Exam trigger
+
+“Investigate unauthorized API calls”
+✔️ CloudTrail
+
+“CPU is high / Lambda errors”
+✔️ CloudWatch
+
+Rapid Exam Summary (Memorize This)
+Topic	        Key Idea
+Role vs Policy	Role uses policies
+Lambda memory	Memory = CPU
+SQS vs SNS	    Queue vs broadcast
+GSI vs LSI	    New access pattern = GSI
+ALB	            Layer 7 (HTTP)
+NLB	            Layer 4 (TCP)
+CloudWatch	    Metrics/logs
+CloudTrail	    Auditing
+
+-----------------------------
 EC2 stands for:
 Elastic Compute Cloud
 
@@ -640,3 +775,23 @@ accelerating time-to-value.
 This addition ensures that users can efficiently manage their network traffic 
 while leveraging third-party solutions directly within AWS.
 ----------------------------
+
+CloudFront cache invalidation (/*)
+
+In Amazon CloudFront:
+/* means invalidate everything
+It clears all cached objects from edge locations
+Forces CloudFront to fetch fresh content from the origin (S3, ALB, etc.)
+
+Why you do it
+You deployed a new build (React, JS, CSS)
+Old files are still being served
+You want changes to appear immediately
+
+What /* means
+* = wildcard
+/* = all paths, all files
+
+One-sentence exam takeaway
+A CloudFront invalidation clears cached content so users receive 
+the latest version from the origin.
