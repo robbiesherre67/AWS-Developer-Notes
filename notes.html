@@ -1,3 +1,209 @@
+Core Compute & Infrastructure
+
+AWS (Amazon Web Services)
+Amazon's cloud platform providing on-demand compute, storage, networking, and managed services.
+
+EC2 (Elastic Compute Cloud)
+Virtual servers in the cloud. You choose the instance type, OS, storage, and networking. You manage the OS.
+
+AMI (Amazon Machine Image)
+A template for EC2 instances. Includes OS, software, configs. Used to launch identical servers quickly.
+
+ASG (Auto Scaling Group)
+Automatically adds/removes EC2 instances based on demand or rules to maintain performance and availability.
+
+ELB (Elastic Load Balancer)
+Distributes incoming traffic across multiple targets (EC2, containers, IPs).
+
+ALB (Application Load Balancer)
+Layer 7 load balancer (HTTP/HTTPS). Supports path-based routing, host-based routing, and works with containers.
+
+NLB (Network Load Balancer)
+Layer 4 load balancer (TCP/UDP). Extremely fast, handles millions of requests, preserves client IP.
+
+CLB (Classic Load Balancer)
+Legacy load balancer. Old exams may reference it; rarely used now.
+
+ECS (Elastic Container Service)
+AWS-managed container orchestration. Runs Docker containers without managing Kubernetes.
+
+EKS (Elastic Kubernetes Service)
+Managed Kubernetes on AWS. More control, more complexity than ECS.
+
+Fargate
+Serverless compute for ECS/EKS. No EC2 instances to manage — you pay per task.
+
+Storage
+
+S3 (Simple Storage Service)
+Object storage for files. Highly durable. Used for static websites, backups, logs, uploads.
+
+EBS (Elastic Block Store)
+Block storage for EC2. Acts like a hard drive. Attached to one EC2 at a time.
+
+EFS (Elastic File System)
+Shared file system. Multiple EC2 instances can read/write at the same time.
+
+Glacier (S3 Glacier)
+Low-cost archival storage. Slow retrieval. Used for compliance and long-term backups.
+
+IOPS (Input/Output Operations Per Second)
+Measure of disk performance. Important for EBS performance questions.
+
+Databases
+
+RDS (Relational Database Service)
+Managed SQL databases (MySQL, Postgres, Oracle, SQL Server). AWS handles backups and patching.
+
+Aurora
+High-performance AWS-built relational database compatible with MySQL/Postgres.
+
+DynamoDB
+Fully managed NoSQL key-value database. Serverless, auto-scaling, single-digit millisecond latency.
+
+ElastiCache
+Managed in-memory caching service to speed up applications.
+
+Redis
+In-memory data store supporting complex data structures. Supports persistence and pub/sub.
+
+Memcached
+Simple in-memory key-value cache. Faster but fewer features than Redis.
+
+TTL (Time To Live)
+Automatically deletes expired items in DynamoDB.
+
+Networking
+
+VPC (Virtual Private Cloud)
+Your isolated virtual network in AWS.
+
+CIDR (Classless Inter-Domain Routing)
+Defines IP address ranges (example: 10.0.0.0/16).
+
+IGW (Internet Gateway)
+Allows traffic between a VPC and the public internet.
+
+NAT (Network Address Translation)
+Allows private resources to access the internet without being publicly accessible.
+
+RT (Route Table)
+Controls how traffic flows within a VPC.
+
+SG (Security Group)
+Stateful firewall for resources. Controls inbound/outbound traffic.
+
+NACL (Network Access Control List)
+Stateless firewall at the subnet level.
+
+ENI (Elastic Network Interface)
+Virtual network card attached to EC2.
+
+DNS (Domain Name System)
+Maps domain names to IP addresses.
+
+Route 53
+AWS-managed DNS service with routing policies and health checks.
+
+Serverless & App Integration (EXAM FAVORITES)
+
+Lambda
+Serverless functions that run code without servers. You pay per execution and duration.
+
+API Gateway
+Creates and manages APIs. Often front-ends Lambda functions.
+
+SQS (Simple Queue Service)
+Message queue for decoupling systems. Messages are pulled by consumers.
+
+SNS (Simple Notification Service)
+Pub/sub messaging. Messages are pushed to subscribers.
+
+SES (Simple Email Service)
+Send transactional or bulk emails.
+
+EventBridge
+Event routing service. Connects AWS services and SaaS apps using events.
+
+Step Functions
+Orchestrates multiple AWS services into workflows with retries and error handling.
+
+Security & Identity
+
+IAM (Identity and Access Management)
+Controls who can access what in AWS.
+
+ARN (Amazon Resource Name)
+Unique identifier for AWS resources.
+
+MFA (Multi-Factor Authentication)
+Adds extra login security.
+
+KMS (Key Management Service)
+Manages encryption keys.
+
+Cognito
+User authentication and authorization for apps.
+
+STS (Security Token Service)
+Provides temporary credentials.
+
+RBAC (Role-Based Access Control)
+Permissions based on roles, not users.
+
+Monitoring, Logging, Dev Tools
+
+CloudWatch
+Metrics, logs, alarms, dashboards.
+
+CloudWatch Logs
+Centralized log storage.
+
+X-Ray
+Traces requests through distributed systems.
+
+CloudTrail
+Logs AWS API calls for auditing.
+
+CodeCommit
+Git repository hosting.
+
+CodeBuild
+Builds and tests code.
+
+CodeDeploy
+Automates deployments.
+
+CodePipeline
+CI/CD orchestration pipeline.
+
+Configuration & Architecture Concepts
+
+AZ (Availability Zone)
+Physically separate data centers within a region.
+
+HA (High Availability)
+Design to minimize downtime.
+
+DR (Disaster Recovery)
+Strategies to recover from outages.
+
+IaC (Infrastructure as Code)
+Provision infrastructure via code (CloudFormation, Terraform).
+
+CORS (Cross-Origin Resource Sharing)
+Browser security rule for APIs.
+
+VTL (Velocity Template Language)
+Used in API Gateway request/response mapping.
+
+DLQ (Dead Letter Queue)
+Stores failed messages for debugging.
+
+FIFO (First In, First Out)
+SQS queue guaranteeing order and exactly-once processing.
+
+----------------------------
 EC2 stands for:
 Elastic Compute Cloud
 
