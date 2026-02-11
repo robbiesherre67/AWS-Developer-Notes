@@ -795,3 +795,41 @@ What /* means
 One-sentence exam takeaway
 A CloudFront invalidation clears cached content so users receive 
 the latest version from the origin.
+------------------------------
+AWS Lambda Concurrency 
+
+In AWS Lambda, concurrency means:
+The number of function instances running at the same time.
+If 50 users trigger your Lambda at once, AWS can spin up 50 separate instances 
+to handle them in parallel.
+
+How It Works
+Each request = one execution environment
+More traffic = more parallel Lambda instances
+AWS automatically scales up (and down) based on demand
+
+Important Types of Concurrency
+Unreserved Concurrency (Default)
+All Lambdas share a regional limit (e.g., 1,000 concurrent executions by default).
+
+Reserved Concurrency
+You can guarantee a specific Lambda gets a fixed number of concurrent executions.
+
+Example:
+
+Reserve 100 for paymentProcessor
+That function always has access to 100 slots
+
+Provisioned Concurrency
+
+Keeps Lambda instances “warm” to reduce cold starts.
+Useful for:
+APIs
+Real-time systems
+Chatbots
+
+*** Summary
+Lambda concurrency refers to the number of simultaneous function executions. 
+AWS automatically scales Lambda instances per request, but you can control 
+scaling using reserved or provisioned concurrency to manage performance and 
+resource allocation.
